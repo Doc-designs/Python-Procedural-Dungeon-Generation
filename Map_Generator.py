@@ -1,5 +1,6 @@
 import random
 import pygame
+import Config
 
 class MapGeneration:
 
@@ -54,12 +55,29 @@ class MapGeneration:
             for x in range(width):
                 noise_map[y][x] = (noise_map[y][x] - bottom_of_range)/difference
         return noise_map
-    def DrawMap(noiseMap, minCol, maxCol, minRow, maxRow):
+    def CreateMap(noiseMap):
+        ConfigInstance = Config.WorldSettings
+        mapTiles = []
+        for y in range(0, maxCol):
+            for x in range(0, maxRow):
+                if noiseMap[y][x] < .3:
+                    imagePath = Config.LoadAsset(Water)
+                    image = pygame.image.load(imagePath)
+                    mapTiles[y][x] = image
+                #Draw Mountains
+                elif noiseMap[y][x] > .6:
+                    imagePath = Config.LoadAsset(Water)
+                    image = pygame.image.load(imagePath)
+                    mapTiles[y][x] = image
+        return mapTiles
+    def DrawMap(screen, noiseMap, minCol, maxCol, minRow, maxRow):
+        ConfigInstance = Config.WorldSettings
         for y in range(minCol, maxCol):
             for x in range(minRow, maxRow):
                 #Draw Water
                 if noiseMap[y][x] < .3:
-                    print("Draw Stuff")
+                    imageRect = image.get_rect()
+                    screen.blit(myimage)
                 #Draw Mountains
                 elif noiseMap[y][x] > .6:
                     print("Draw Stuff")

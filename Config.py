@@ -1,4 +1,4 @@
-import Enum
+from enum import Enum
 class Terrain(Enum):
     WATER = 0
     BEACH = 1
@@ -7,23 +7,18 @@ class Terrain(Enum):
 class LoadAsset(Enum):
     Player = "Player"
     Enemy = "Enemy"
-    Water = ""
-    Mountain = "Mountain"
+    TileSet = "Assets/Tilemaps/water_and_island_tiles_v2.png"
     
 class WorldSettings:
     TILESIZE = 50
     WORLD_X = 100
     WORLD_Y = 100
 
-    ALL_TERRAIN_TYPES = [WATER, BEACH, GRASS, MOUNTAIN]
+    ALL_TERRAIN_TYPES = [Terrain.WATER, Terrain.BEACH,
+                         Terrain.GRASS, Terrain.MOUNTAIN]
 
     TERRAIN_TILES = [
-        #Deep Ocean Tiles
-        [
-            (0, 0),
-            (20, 20)
-        ],
-        #Light Water Tiles
+        #Water Tiles
         [
             (0, 0),
             (20, 20)
@@ -45,3 +40,6 @@ class WorldSettings:
         ],
                 ]
 
+class InventorySettings:
+    hotbarSize = 8
+    inventorySize = 24
