@@ -54,7 +54,7 @@ class Game:
         running = True
 
         #Create Player
-        player = playerInstance.CreatePlayer(screen)
+        player = playerInstance.CreatePlayer()
 
 
         #Run Window Till Closed

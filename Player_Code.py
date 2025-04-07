@@ -2,9 +2,11 @@ import pygame
 import pygame.freetype #Used for Text
 
 class Player:
-    def CreatePlayer(screen):
+    def __init__(self, isIventoryOpen):
+        self.isInventoryOpen = False
+        
+    def CreatePlayer():
         player = pygame.Rect(400, 300, 50, 50)
-        player.isInventoryOpen = False
         return player
         
     def DrawPlayer(screen, player, clock):
@@ -25,7 +27,7 @@ class Player:
         if keys[pygame.K_RIGHT]:
             player.x += 5
         if keys[pygame.K_TAB]:
-            player.isInventoryOpen = True
+            self.isInventoryOpen = not self.isInventoryOpen 
         return player.move(player.x, player.y)
         #New Controls Implementation
 
@@ -38,7 +40,7 @@ class Camera(pygame.sprite.Group):
 
     def custom_draw(self):
         self.offset.x = player.rect.centerx - WIDTH // 2
-        self.offset.y = player.rect.centery - HEIGHT //2
+        self.offset.y = player.rect.centery - HEIGHT // 2
 
         floor_offset_pos = self.floor_rect.topleft - self.offset
 
@@ -56,6 +58,7 @@ class Inventory:
                 pygame.draw.rect(screen, GRAY, slotSpace, 1)
                 border = pygame.Rect(x, WINDOW_HEIGHT-blockSize, blockSize, blockSize)
                 pygame.draw.rect(screen, WHITE, border, 1)
+                
     def CreateInventory(screen, WINDOW_WIDTH, WINDOW_HEIGHT, Slots_Amount):
         blockSize = 50 #Set the size of the grid block
         GRAY = (100, 100, 100)
