@@ -70,14 +70,14 @@ class MapGeneration:
                     image = pygame.image.load(imagePath)
                     mapTiles[y][x] = image
         return mapTiles
-    def DrawMap(screen, noiseMap, minCol, maxCol, minRow, maxRow):
+    def DrawMap(screen, mapTiles, minCol, maxCol, minRow, maxRow):
         ConfigInstance = Config.WorldSettings
         for y in range(minCol, maxCol):
             for x in range(minRow, maxRow):
                 #Draw Water
-                if noiseMap[y][x] < .3:
-                    imageRect = image.get_rect()
+                if mapTiles[y][x] < .3:
+                    imageRect = image.get_rect(center = (50+(1*y), 50+(1*x)))
                     screen.blit(myimage)
                 #Draw Mountains
-                elif noiseMap[y][x] > .6:
+                elif mapTiles[y][x] > .6:
                     print("Draw Stuff")

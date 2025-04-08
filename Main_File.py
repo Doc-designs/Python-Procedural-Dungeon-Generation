@@ -42,7 +42,8 @@ class Game:
         #RegisterConfig
         inventoryConfig = Config.InventorySettings
         #Connect Other Scripts
-        playerInstance = Player_Code.Player
+        playerInstance = Player_Code.Player(False)
+        playerInstance.SwapAnimation(playerInstance.animationSheet)
         collisionHandler = CollisionHandler.Collision
         inventoryHandler = Player_Code.Inventory
         dungeonInstance = Map_Generator.MapGeneration
@@ -59,12 +60,14 @@ class Game:
 
         #Run Window Till Closed
         while running:
+            print(playerInstance.isInventoryOpen)
             playerInputs = playerInstance.Controls(player)
-            #Player Controls Handler
             if type(playerInputs) == bool:
-                player.isInventoryOpen = playerInstance.Controls(player)
+                playerInstance.isInventoryOpen = playerInstance.Controls(player)
             else:
                 playerInstance.Controls(player)
+            #Player Controls Handler
+            playerInstance.Controls(player)
             #Check Map Bounds
             collisionHandler.MapBounds(player, WINDOW_WIDTH, WINDOW_HEIGHT)
             #Draw Tiles
@@ -75,8 +78,8 @@ class Game:
             playerInstance.DrawPlayer(screen, player, clock)
             #Draw Inventory
             hotBar = inventoryHandler.CreateHotbar(screen, WINDOW_WIDTH, WINDOW_HEIGHT, inventoryConfig.hotbarSize)
-            if player.isInventoryOpen:
-                inventory = inventoryHandler.CreateInventory()
+            if playerInstance.isInventoryOpen:
+                inventory = inventoryHandler.CreateInventory(screen, WINDOW_WIDTH, WINDOW_HEIGHT, inventoryConfig.inventorySize)
             #Post Text to Screen
             pygame.display.update()
             #Close Window on Exit
