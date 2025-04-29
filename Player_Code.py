@@ -60,32 +60,40 @@ class Player:
             if self.repeatedAction == False and self.PreviousAction == "Up":
                 repeatedAction = True
                 self.previousAction = "Up"
+                self.IndexFrameList()
             elif not(self.PreviousAction=="Up"):
                 repeatedAction = False
+                self.SwapAnimation(Config.LoadAsset.PlayerUp.value)
                 self.frameIndex = 0
             player.y -= 5
         if keys[pygame.K_DOWN]:
             if self.repeatedAction == False and self.PreviousAction == "Down":
                 repeatedAction = True
                 self.previousAction = "Down"
+                self.IndexFrameList()
             elif not(self.PreviousAction=="Down"):
                 repeatedAction = False
+                self.SwapAnimation(Config.LoadAsset.PlayerDown.value)
                 self.frameIndex = 0
             player.y += 5
         if keys[pygame.K_LEFT]:
             if self.repeatedAction == False and self.PreviousAction == "Left":
                 repeatedAction = True
                 self.previousAction = "Left"
+                self.IndexFrameList()
             elif not(self.PreviousAction=="Left"):
                 repeatedAction = False
+                self.SwapAnimation(Config.LoadAsset.PlayerLeft.value)
                 self.frameIndex = 0
             player.x -= 5
         if keys[pygame.K_RIGHT]:
             if self.repeatedAction == False and self.PreviousAction == "Right":
                 repeatedAction = True
                 self.previousAction = "Right"
+                self.IndexFrameList()
             elif not(self.PreviousAction=="Right"):
                 repeatedAction = False
+                self.SwapAnimation(Config.LoadAsset.PlayerRight.value)
                 self.frameIndex = 0
             player.x += 5
         if keys[pygame.K_TAB]:
