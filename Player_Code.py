@@ -21,10 +21,10 @@ class Player:
         match animation:
             case Config.LoadAsset.PlayerUp:
                 self.animationSheet = Config.LoadAsset.PlayerUp
-            case Config.LoadAsset.PlayerRight:
-                self.animationSheet = Config.LoadAsset.PlayerRight
             case Config.LoadAsset.PlayerDown:
                 self.animationSheet = Config.LoadAsset.PlayerDown
+            case Config.LoadAsset.PlayerLeft:
+                self.animationSheet = Config.LoadAsset.PlayerLeft
             case Config.LoadAsset.PlayerRight:
                 self.animationSheet = Config.LoadAsset.PlayerRight
         self.playerImage = pygame.transform.scale(pygame.image.load(animation).convert_alpha(), (50, 50))
@@ -38,14 +38,14 @@ class Player:
                 self.frameList.append(frame)
     def IndexFrameList(self):
         if self.previousAction!="Idle":
-            if self.frameIndex < len(self.frameIndex):
+            if self.frameIndex < len(self.frameList):
                 self.frameIndex+=1
             else:
                 self.frameIndex = 0
     def DrawPlayer(self, screen, player, clock):
         #Draw Over Previous Drawings
         if len(self.frameList)>0:
-            screen.blit(self.frameList[self.frameIndex], (player.x, player.y))
+            screen.blit(self.frameList[self.frameIndex], self.playerImage.get_rect(center = (player.x, player.y)))
         #pygame.draw.rect(screen, (0, 255, 0), player)
         clock.tick(60)
         return player
@@ -97,16 +97,15 @@ class Player:
                 self.frameIndex = 0
             player.x += 5
         if keys[pygame.K_TAB]:
-            if self.isInventoryOpen == False:
-                self.isInventoryOpen = True
+            if self.repeatedAction == True and self.PreviousAction == "Inventory":
+                return
             else:
-                self.isInventoryOpen = False
-            if self.repeatedAction == False and self.PreviousAction == "Inventory":
-                self.repeatedAction = True
-                self.PreviousAction = "Inventory"
-            elif self.PreviousAction == "Inventory":
                 self.repeatedAction = False
                 self.PreviousAction = "Inventory"
+                if self.isInventoryOpen == False:
+                    self.isInventoryOpen = True
+                else:
+                    self.isInventoryOpen = False
         
         return player.move(player.x, player.y)
 
@@ -131,7 +130,8 @@ class Inventory:
         #self.player = player
         #self.selector_image = pygame.transform.scale(pygame.image.load("Assets/GUI/Selector.png"), (50, 55))
         #self.hotbar_image = pygame.transform.scale(pygame.image.load("Assets/GUI/Hotbar.png"), (500, 64))
-        #self.hotbar_rect = self.hotbar_image.get_rect(center=(WINDOW_WIDTH/2), WINDOW_HEIGHT-30)
+        #self.hotbar_rect = self.hotbar_image.get_rect(WINDOW_HEIGHT-30, center=(WINDOW_WIDTH/2))
+
     def CreateHotbar(screen, WINDOW_WIDTH, WINDOW_HEIGHT, Slots_Amount):
         blockSize = 50 #Set the size of the grid block
         GRAY = (192, 192, 192)
@@ -152,6 +152,6 @@ class Inventory:
                 pygame.draw.rect(screen, GRAY, slotSpace, 1)
                 border = pygame.Rect(x, y, blockSize, blockSize)
                 pygame.draw.rect(screen, WHITE, border, 1)
-
+class UI:
     def GameText(text, screen, position, font):
         font.render_to(screen, position, text, (0, 0, 0))

@@ -60,12 +60,8 @@ class Game:
 
         #Run Window Till Closed
         while running:
-            print(playerInstance.isInventoryOpen)
+            #print(playerInstance.isInventoryOpen)
             playerInputs = playerInstance.Controls(player)
-            if type(playerInputs) == bool:
-                playerInstance.isInventoryOpen = playerInstance.Controls(player)
-            else:
-                playerInstance.Controls(player)
             #Player Controls Handler
             playerInstance.Controls(player)
             #Check Map Bounds
@@ -76,6 +72,7 @@ class Game:
             #DungeonInstance.GeneratePerlinNoise(screen)
             #Draw Player
             playerInstance.DrawPlayer(screen, player, clock)
+            print([player.x, player.y])
             #Draw Inventory
             hotBar = inventoryHandler.CreateHotbar(screen, WINDOW_WIDTH, WINDOW_HEIGHT, inventoryConfig.hotbarSize)
             if playerInstance.isInventoryOpen:

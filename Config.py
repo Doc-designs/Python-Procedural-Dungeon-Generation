@@ -5,10 +5,10 @@ class Terrain(Enum):
     GRASS = 2
     MOUNTAIN = 3
 class LoadAsset(Enum):
-    PlayerUp = "Player"
-    PlayerRight = "Player"
+    PlayerUp = "Assets/Player/Character_Up.png"
     PlayerDown = "Assets/Player/Character_Down.png"
-    PlayerLeft = "Player"
+    PlayerLeft = "Assets/Player/Character_Left.png"
+    PlayerRight = "Assets/Player/Character_Right.png"
     Enemy = "Enemy"
     TileSet = "Assets/Tilemaps/water_and_island_tiles_v2.png"
     
